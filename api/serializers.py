@@ -5,6 +5,7 @@ class PollSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Poll
         fields = [
+            'id',
             'title', 
             'start_date',
             'end_date',
