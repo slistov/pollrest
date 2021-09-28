@@ -24,7 +24,7 @@ CHOICES = [
 
 
 class Question(models.Model):
-    poll= models.ForeignKey(Poll, on_delete=models.CASCADE)
+    poll_id= models.ForeignKey(Poll, on_delete=models.CASCADE)
     question_text = models.CharField('Текст вопроса', max_length=200)
     answer_type = models.CharField(
         'Тип ответа',

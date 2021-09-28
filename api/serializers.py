@@ -18,6 +18,5 @@ class QuestionSerializer(serializers.HyperlinkedModelSerializer):
         model = Question
         fields = [
             'poll_id',
-            'question_text',
-            'answer_type'
+            'question_text'
         ]

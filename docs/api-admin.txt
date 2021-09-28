@@ -1,0 +1,9 @@
+ФУНКЦИОНАЛ АДМИНИСТРАТОРА
+Получение опросов
+    GET api/polls/
+Добавление опросов
+    POST api/polls/
+Изменение опросов
+    PUT api/polls/:poll_id/
+Удаление опросов
+    DELETE api/polls/:poll_id
