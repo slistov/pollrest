@@ -1,4 +1,8 @@
 from django.db import models
+
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+
 from django.db.models.fields.related import ForeignKey
 
 
@@ -10,6 +14,22 @@ class Poll(models.Model):
     
     def __str__(self):
         return self.title
+
+@receiver(pre_save, sender=Poll)
+def signal_before_model_update(sender, instance, **kwargs):
+    """Перед сохранением экземпляра бросить исключение
+    при попытке изменить readonly-поле.
+
+    По задаче: у опроса после создания нельзя изменять start_date
+    """
+    try:
+        obj = sender.objects.get(pk=instance.pk)
+    except sender.DoesNotExist:
+        pass  # Инсерт, не препятствовать
+    else:
+        if not obj.start_date == instance.start_date:  # Попытка изменить поле
+            raise models.ProtectedError("Нельзя изменять поле 'start_date'", None)
+
 
 
 # class AnswerType(models.Model):
