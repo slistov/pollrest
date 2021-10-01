@@ -14,14 +14,20 @@ class PollSerializer(serializers.ModelSerializer):
             'end_date',
             'description'
         ]
+        extra_kwargs = {
+            'title': {'required': False},
+            'start_date': {'required': False},
+            'end_date': {'required': False},
+            'description': {'required': False}
+        }
+        validators = []
     
     def update(self, instance, validated_data):
-        """Бросить исключение при попытке изменить readonly-поле.
+        """Исключение при попытке изменить readonly-поле.
 
         По задаче: у опроса после создания нельзя изменять start_date
         """
-        if instance.start_date != validated_data.get('start_date', 
-                                        instance.start_date):
+        if instance.start_date != validated_data.get('start_date', instance.start_date):
             raise models.ProtectedError("Нельзя изменять поле 'start_date'", None)
         else:
             # Вызвать метод родителя
