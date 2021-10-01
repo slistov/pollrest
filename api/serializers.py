@@ -4,7 +4,7 @@ from django.db import models
 from rest_framework import serializers
 from api.models import Poll, Question
 
-class PollSerializer(serializers.HyperlinkedModelSerializer):
+class PollSerializer(serializers.ModelSerializer):
     class Meta:
         model = Poll
         fields = [
@@ -24,10 +24,10 @@ class PollSerializer(serializers.HyperlinkedModelSerializer):
         if instance.start_date != validated_data.get('start_date', instance.start_date):
             raise models.ProtectedError("Нельзя изменять поле 'start_date'", None)
         else:
-            return serializers.HyperlinkedModelSerializer.update(self, instance, validated_data)
+            return serializers.ModelSerializer.update(self, instance, validated_data)
 
 
-class QuestionSerializer(serializers.HyperlinkedModelSerializer):
+class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = [
